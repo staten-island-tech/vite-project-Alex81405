@@ -1,23 +1,106 @@
 import "../styles/style.css";
-import javascriptLogo from "../javascript.svg";
-import { setupCounter } from "./counter.js";
+import {dumplings} from "./array";
+import {dom} from "./dom";
 
-document.querySelector("#app").innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`;
+document.getElementById("changetheme").addEventListener("click", function () {
+  if(document.body.classList.contains("gray")) {
+    document.body.classList.add("blue");
+    document.body.classList.remove("gray");
+  } else {
+    document.body.classList.add("gray");
+    document.body.classList.remove("blue");
+  }
+});
 
-setupCounter(document.querySelector("#counter"));
+function clear() {
+  dom.main.innerHTML = "";
+};
+
+function start(dumplings) {
+  dom.main.insertAdjacentHTML(
+    "beforeend",
+    `<div class = "card">
+    <h2 class="name">${dumplings.name}</h2>
+    <img class="img" src="${dumplings.img}"/> 
+    <h3 class="price">${dumplings.price}</h3>
+    <h4 class="desc"></h4>
+    </div>`
+  )};
+
+function listAll() {
+  dumplings.forEach((dumplings) => {
+    start(dumplings);
+  });
+  };
+
+  listAll();
+
+document.getElementById("all").addEventListener("click", function all() {
+  clear();
+  dumplings.forEach((dumplings) => 
+    dom.main.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class="card">
+      <h2 class="name">${dumplings.name}</h2>
+      <img class="img" src="${dumplings.img}"/> 
+      <h3 class="price">${dumplings.price}</h3>
+      <h4 class="desc"></h4>
+    </div> `
+    ) 
+  );
+});
+
+document.getElementById("boiled").addEventListener("click", function boiled() {
+  clear();
+  dumplings
+    .filter(dumplings => dumplings.category === "boiled")
+    .forEach((dumplings) => 
+      dom.main.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div class="card">
+        <h2>${dumplings.name}</h2>
+        <img class="img" src="${dumplings.img}"/> 
+        <h3>${dumplings.price}</h3>
+        <h4 class="desc"></h4>
+      </div> `
+      ) 
+    );
+  });
+
+document.getElementById("steamed").addEventListener("click", function steamed() {
+  clear();
+  dumplings
+    .filter(dumplings => dumplings.category === "steamed")
+    .forEach((dumplings) => 
+      dom.main.insertAdjacentHTML(
+        "beforeend",
+        `
+        <div class="card">
+        <h2>${dumplings.name}</h2>
+        <img class="img" src="${dumplings.img}"/> 
+        <h3>${dumplings.price}</h3>
+        <h4 class="desc"></h4>
+      </div> `
+      ) 
+    );
+  });
+  
+  document.getElementById("fried").addEventListener("click", function fried() {
+    clear();
+    dumplings
+      .filter(dumplings => dumplings.category === "fried")
+      .forEach((dumplings) => 
+        dom.main.insertAdjacentHTML(
+          "beforeend",
+          `
+          <div class="card">
+          <h2>${dumplings.name}</h2>
+          <img class="img" src="${dumplings.img}"/> 
+          <h3>${dumplings.price}</h3>
+          <h4 class="desc"></h4>
+        </div> `
+        ) 
+      );
+    });
